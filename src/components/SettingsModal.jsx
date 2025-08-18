@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Modal,
@@ -19,7 +19,7 @@ import { CurrencyModal } from './CurrencyModal';
 
 const themeOptions = ['dark', 'light', 'coffee', 'forest'];
 
-export const SettingsModal = ({ visible, onClose, title }) => {
+export const SettingsModal = React.memo(({ visible, onClose, title }) => {
   const { toggleTheme, themeKey, theme } = useTheme();
 
   const [themeModalVisible, setThemeModalVisible] = useState(false);
@@ -44,9 +44,12 @@ export const SettingsModal = ({ visible, onClose, title }) => {
     }
   }, [visible]);
 
+  const openThemeModal = useCallback(() => setThemeModalVisible(true), []);
+
+  const openCurrencyModal = useCallback(() => setIsisCurrencyModal(true), []);
+
   return (
     <>
-      {/* Main Settings Modal */}
       <Modal
         visible={visible}
         transparent={true}
@@ -75,7 +78,7 @@ export const SettingsModal = ({ visible, onClose, title }) => {
             {/* Theme Button */}
             <TouchableOpacity
               style={styles.ThemeButton}
-              onPress={() => setThemeModalVisible(true)}
+              onPress={openThemeModal}
             >
               <Text style={[styles.ThemeText, { color: theme.text }]}>
                 🎨 Theme
@@ -92,7 +95,7 @@ export const SettingsModal = ({ visible, onClose, title }) => {
             {/* Currency */}
             <TouchableOpacity
               style={styles.ThemeButton}
-              onPress={() => setIsisCurrencyModal(true)}
+              onPress={openCurrencyModal}
             >
               <View style={styles.SettingsRowContainer}>
                 <MaterialIcons
@@ -108,10 +111,7 @@ export const SettingsModal = ({ visible, onClose, title }) => {
             </TouchableOpacity>
 
             {/* Notifications */}
-            <TouchableOpacity
-              style={styles.ThemeButton}
-              onPress={() => setThemeModalVisible(true)}
-            >
+            <TouchableOpacity style={styles.ThemeButton}>
               <View style={styles.SettingsRowContainer}>
                 <Ionicons name="notifications-outline" size={24} color="#fff" />
                 <Text style={[styles.sectionTitle, { color: theme.text }]}>
@@ -202,7 +202,7 @@ export const SettingsModal = ({ visible, onClose, title }) => {
       </Modal>
     </>
   );
-};
+});
 
 const styles = StyleSheet.create({
   modalOverlay: {

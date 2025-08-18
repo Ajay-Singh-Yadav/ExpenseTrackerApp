@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -28,7 +28,7 @@ const ProfileScreen = () => {
 
   const user = auth().currentUser;
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     Alert.alert(
       'Confirm Logout',
       'Are you sure you want to log out?',
@@ -45,7 +45,7 @@ const ProfileScreen = () => {
       ],
       { cancelable: true },
     );
-  };
+  }, [logout]);
 
   return (
     <View style={[styles.container, { backgroundColor: theme.bgColor }]}>
@@ -97,48 +97,54 @@ const ProfileScreen = () => {
           theme={theme}
         />
       </View>
-      <ProfileModal
-        visible={isPrivacyVisible}
-        onClose={() => setPrivacyVisible(false)}
-        title="Privacy Policy"
-      />
-      <SettingsModal
-        visible={isSettingsVisible}
-        onClose={() => setSettingsVisible(false)}
-        title="Settings"
-        theme={theme}
-      />
+
+      {isPrivacyVisible && (
+        <ProfileModal
+          visible={true}
+          onClose={() => setPrivacyVisible(false)}
+          title="Privacy Policy"
+        />
+      )}
+      {isSettingsVisible && (
+        <SettingsModal
+          visible={true}
+          onClose={() => setSettingsVisible(false)}
+          title="Settings"
+          theme={theme}
+        />
+      )}
     </View>
   );
 };
 
-const OptionItem = ({ icon, label, iconColor, onPress, withBg = false }) => (
-  <TouchableOpacity style={[styles.optionRow]} onPress={onPress}>
-    <View
-      style={[
-        styles.optionIconBox,
-        { backgroundColor: withBg ? `${iconColor}22` : 'transparent' },
-      ]}
-    >
-      <Ionicons name={icon} size={moderateScale(20)} color={iconColor} />
-    </View>
-    <Text style={styles.optionLabel}>{label}</Text>
-    <MaterialCommunityIcons
-      name="chevron-right"
-      size={moderateScale(20)}
-      color="#888"
-      style={{ marginLeft: 'auto' }}
-    />
-  </TouchableOpacity>
+const OptionItem = React.memo(
+  ({ icon, label, iconColor, onPress, withBg = false }) => (
+    <TouchableOpacity style={[styles.optionRow]} onPress={onPress}>
+      <View
+        style={[
+          styles.optionIconBox,
+          { backgroundColor: withBg ? `${iconColor}22` : 'transparent' },
+        ]}
+      >
+        <Ionicons name={icon} size={moderateScale(20)} color={iconColor} />
+      </View>
+      <Text style={styles.optionLabel}>{label}</Text>
+      <MaterialCommunityIcons
+        name="chevron-right"
+        size={moderateScale(20)}
+        color="#888"
+        style={{ marginLeft: 'auto' }}
+      />
+    </TouchableOpacity>
+  ),
 );
 
-export default ProfileScreen;
+export default React.memo(ProfileScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(20),
-    paddingTop: verticalScale(35),
+    paddingHorizontal: scale(10),
   },
   header: {
     alignItems: 'center',

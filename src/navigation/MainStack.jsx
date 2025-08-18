@@ -26,7 +26,7 @@ const MainStack = () => {
         name="Search"
         component={SearchScreen}
         options={{
-          stackPresentation: 'modal',
+          presentation: 'modal',
           animation: 'slide_from_bottom',
           gestureDirection: 'vertical',
           headerShown: false,
@@ -36,4 +36,4 @@ const MainStack = () => {
   );
 };
 
-export default MainStack;
+export default React.memo(MainStack);

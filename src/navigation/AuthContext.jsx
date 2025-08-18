@@ -3,7 +3,6 @@ import { createContext, useEffect, useState } from 'react';
 export const AuthContext = createContext();
 
 import auth from '@react-native-firebase/auth';
-import { Alert } from 'react-native';
 
 export const AuthProvider = ({ children }) => {
   const [initializing, setInitializing] = useState(true);

@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   transactionRow: {
     borderRadius: moderateScale(10),
     padding: moderateScale(8),
-    marginVertical: verticalScale(6),
+    marginVertical: verticalScale(4),
     elevation: 5,
   },
   TransactionText: {

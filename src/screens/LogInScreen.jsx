@@ -30,6 +30,15 @@ GoogleSignin.configure({
 import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext } from '../navigation/AuthContext';
+import {
+  moderateScale,
+  s,
+  scale,
+  verticalScale,
+} from 'react-native-size-matters';
+
+const facebookImage = require('../assets/images/facebook.png');
+const GoogleImage = require('../assets/images/Google.png');
 
 const LogInScreen = () => {
   const [email, setEmail] = useState('');
@@ -115,7 +124,12 @@ const LogInScreen = () => {
       {/* Email Input */}
 
       <View style={styles.inputContainer}>
-        <Ionicons name="mail" size={20} color="#aaa" style={styles.icon} />
+        <Ionicons
+          name="mail"
+          size={moderateScale(15)}
+          color="#aaa"
+          style={styles.icon}
+        />
         <TextInput
           placeholder="Enter your email"
           placeholderTextColor="#aaa"
@@ -131,7 +145,7 @@ const LogInScreen = () => {
       <View style={styles.inputContainer}>
         <Ionicons
           name="lock-closed"
-          size={20}
+          size={moderateScale(15)}
           color="#aaa"
           style={styles.icon}
         />
@@ -175,11 +189,13 @@ const LogInScreen = () => {
         >
           <Entypo
             name="mobile"
-            size={40}
+            size={moderateScale(30)}
             color="#fff"
-            style={{ marginRight: 10, alignItems: 'center' }}
+            style={{ marginRight: scale(8), alignItems: 'center' }}
           />
-          <Text style={[styles.SocialLoginText, { marginTop: 10 }]}>
+          <Text
+            style={[styles.SocialLoginText, { marginTop: verticalScale(10) }]}
+          >
             Mobile
           </Text>
         </TouchableOpacity>
@@ -188,16 +204,16 @@ const LogInScreen = () => {
           onPress={handleGoogleSignIn}
         >
           <Image
-            source={require('../assets/images/Google.png')}
-            style={{ width: 50, height: 50 }}
+            source={GoogleImage}
+            style={{ width: moderateScale(40), height: moderateScale(40) }}
             resizeMode="cover"
           />
           <Text style={styles.SocialLoginText}>Google</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.SocialButtons}>
           <Image
-            source={require('../assets/images/facebook.png')}
-            style={{ width: 50, height: 50 }}
+            source={facebookImage}
+            style={{ width: moderateScale(40), height: moderateScale(40) }}
             resizeMode="cover"
           />
           <Text style={styles.SocialLoginText}>Facebook</Text>
@@ -213,23 +229,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#111827',
-    padding: 20,
+    padding: moderateScale(20),
   },
   LogInText: {
-    fontSize: 30,
+    fontSize: moderateScale(25),
     color: '#fff',
     fontWeight: 'bold',
-    marginTop: 90,
+    marginTop: verticalScale(40),
     textAlign: 'center',
   },
   title: {
-    fontSize: 30,
+    fontSize: moderateScale(25),
     color: '#fff',
     fontWeight: '400',
-    marginTop: 40,
+    marginTop: verticalScale(25),
   },
   titleBold: {
-    fontSize: 30,
+    fontSize: moderateScale(25),
     color: '#fff',
     fontWeight: 'bold',
   },
@@ -242,29 +258,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#1f2937',
     borderWidth: 1,
     borderColor: '#333',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    marginVertical: 30,
+    borderRadius: moderateScale(10),
+    paddingHorizontal: scale(10),
+    marginVertical: verticalScale(20),
   },
   icon: {
-    marginRight: 10,
+    marginRight: scale(6),
   },
   input: {
     flex: 1,
     color: '#fff',
-    height: 50,
+    height: verticalScale(35),
   },
   button: {
     backgroundColor: '#A3E635',
     paddingVertical: 15,
-    borderRadius: 10,
-    marginTop: 40,
+    borderRadius: moderateScale(10),
+    marginTop: verticalScale(20),
   },
   buttonText: {
     color: '#111827',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: moderateScale(15),
   },
   bottomText: {
     color: '#aaa',
@@ -274,7 +290,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: verticalScale(20),
   },
   loginLink: {
     color: '#A3E635',
@@ -284,20 +300,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '300',
     textAlign: 'center',
-    marginTop: 50,
+    marginTop: verticalScale(40),
   },
 
   SocialContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 20,
-    marginHorizontal: 50,
+    marginTop: verticalScale(20),
+    marginHorizontal: scale(20),
   },
   SocialLoginText: {
     color: '#fff',
     fontWeight: '200',
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: moderateScale(10),
   },
   SocialButtons: {
     justifyContent: 'center',

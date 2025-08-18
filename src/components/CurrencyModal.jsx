@@ -19,7 +19,7 @@ import { moderateScale } from 'react-native-size-matters';
 
 const { height } = Dimensions.get('window');
 
-export const CurrencyModal = ({ visible, onClose, title }) => {
+export const CurrencyModal = React.memo(({ visible, onClose, title }) => {
   return (
     <Modal
       visible={visible}
@@ -64,7 +64,7 @@ export const CurrencyModal = ({ visible, onClose, title }) => {
       </View>
     </Modal>
   );
-};
+});
 
 const styles = StyleSheet.create({
   modalOverlay: {

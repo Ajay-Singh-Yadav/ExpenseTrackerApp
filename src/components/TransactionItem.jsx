@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TransactionItem = ({ transaction }) => {
@@ -12,7 +13,7 @@ const TransactionItem = ({ transaction }) => {
       >
         <MaterialCommunityIcons
           name={transaction.icon}
-          size={20}
+          size={moderateScale(15)}
           color="#fff"
         />
       </View>
@@ -36,8 +37,8 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     backgroundColor: '#1c1c1e',
-    borderRadius: 10,
-    padding: 12,
+    borderRadius: moderateScale(10),
+    padding: moderateScale(10),
     marginVertical: 6,
     alignItems: 'center',
   },

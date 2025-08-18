@@ -9,7 +9,10 @@ const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      initialRouteName="LogIn"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="LogIn" component={LogInScreen} />
       <Stack.Screen name="NumberLogIn" component={NumberLogInScreen} />
@@ -17,4 +20,4 @@ const AuthStack = () => {
   );
 };
 
-export default AuthStack;
+export default React.memo(AuthStack);

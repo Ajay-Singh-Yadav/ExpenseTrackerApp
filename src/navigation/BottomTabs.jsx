@@ -12,50 +12,46 @@ import { useTheme } from '../constants/ThemeContext';
 
 const Tabs = createBottomTabNavigator();
 
+const ICONS = {
+  Home: (focused, size, color) => (
+    <Ionicons
+      name={focused ? 'home' : 'home-outline'}
+      size={size}
+      color={color}
+    />
+  ),
+  Statistics: (focused, size, color) => (
+    <Ionicons
+      name={focused ? 'bar-chart' : 'bar-chart-outline'}
+      size={size}
+      color={color}
+    />
+  ),
+  Wallet: (_, size, color) => (
+    <MaterialCommunityIcons name="wallet" size={size} color={color} />
+  ),
+  Profile: (focused, size, color) => (
+    <Ionicons
+      name={focused ? 'person' : 'person-outline'}
+      size={size}
+      color={color}
+    />
+  ),
+};
+
 const BottomTabs = () => {
   const { theme } = useTheme();
 
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size, focused }) => {
-          let iconName;
-
-          if (route.name === 'Home') {
-            return (
-              <Ionicons
-                name={focused ? 'home' : 'home-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          } else if (route.name === 'Statistics') {
-            return (
-              <Ionicons
-                name={focused ? 'bar-chart' : 'bar-chart-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          } else if (route.name === 'Wallet') {
-            return (
-              <MaterialCommunityIcons name="wallet" size={size} color={color} />
-            );
-          } else if (route.name === 'Profile') {
-            return (
-              <Ionicons
-                name={focused ? 'person' : 'person-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          }
-        },
+        tabBarIcon: ({ color, size, focused }) =>
+          ICONS[route.name](focused, size, color),
         tabBarStyle: {
           backgroundColor: theme.bgColor,
           paddingBottom: 5,
           paddingTop: 5,
-          borderTopWidth: 0,
+
           elevation: 10,
           height: 70,
           borderTopWidth: 1,
@@ -75,4 +71,4 @@ const BottomTabs = () => {
   );
 };
 
-export default BottomTabs;
+export default React.memo(BottomTabs);

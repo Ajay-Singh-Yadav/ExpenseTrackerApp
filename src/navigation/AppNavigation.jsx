@@ -1,11 +1,14 @@
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import SplashScreen from '../screens/SpalshScreen';
+import SplashScreen from '../screens/SplashScreen';
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
 import { AuthContext } from './AuthContext';
 import { useTheme } from '../constants/ThemeContext';
+
+const MemoizedAuthStack = React.memo(AuthStack);
+const MemoizedMainStack = React.memo(MainStack);
 
 const AppNavigation = () => {
   const { theme } = useTheme();
@@ -16,7 +19,7 @@ const AppNavigation = () => {
   useEffect(() => {
     const time = setTimeout(() => {
       setloading(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(time);
   }, []);
@@ -26,13 +29,10 @@ const AppNavigation = () => {
   }
 
   return (
-    <NavigationContainer>
-      <StatusBar
-        barStyle={theme.barStyle}
-        translucent
-        backgroundColor={theme.bgColor}
-      />
-      {isAuthenticated ? <MainStack /> : <AuthStack />}
+    <NavigationContainer theme={theme.navigationTheme}>
+      <StatusBar barStyle={theme.barStyle} backgroundColor={theme.bgColor} />
+
+      {isAuthenticated ? <MemoizedMainStack /> : <MemoizedAuthStack />}
     </NavigationContainer>
   );
 };

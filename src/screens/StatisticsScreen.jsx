@@ -184,12 +184,11 @@ const StatisticsScreen = () => {
   );
 };
 
-export default StatisticsScreen;
+export default React.memo(StatisticsScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: verticalScale(5),
   },
 
   header: {

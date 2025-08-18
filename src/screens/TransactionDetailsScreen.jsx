@@ -69,7 +69,7 @@ const TransactionDetailsScreen = () => {
       setDescription(transactions.description || '');
       isMounted.current = true;
     }
-  }, [transactions]);
+  }, []);
 
   const typeOptions = [
     { label: 'Income', value: 'income' },
@@ -156,7 +156,7 @@ const TransactionDetailsScreen = () => {
           source={require('../animation/success.json')}
           autoPlay
           loop={false}
-          style={{ width: 200, height: 200 }}
+          style={{ width: moderateScale(150), height: moderateScale(150) }}
         />
         <Text style={{ color: '#fff', marginTop: 20, fontSize: 16 }}>
           {successMessage}
@@ -180,7 +180,11 @@ const TransactionDetailsScreen = () => {
               style={[styles.backButton, { backgroundColor: theme.backButton }]}
               onPress={() => navigation.goBack()}
             >
-              <Ionicons name="chevron-back" size={25} color="#fff" />
+              <Ionicons
+                name="chevron-back"
+                size={moderateScale(20)}
+                color="#fff"
+              />
             </TouchableOpacity>
 
             <Text style={[styles.headingText, { color: theme.text }]}>
@@ -208,7 +212,7 @@ const TransactionDetailsScreen = () => {
                   backgroundColor: selected
                     ? theme.dropdownSelected
                     : theme.dropdownBg,
-                  padding: 12,
+                  padding: moderateScale(10),
                 }}
               >
                 <Text style={{ color: '#fff' }}>{item.label}</Text>
@@ -236,7 +240,7 @@ const TransactionDetailsScreen = () => {
                   backgroundColor: selected
                     ? theme.dropdownSelected
                     : theme.dropdownBg,
-                  padding: 12,
+                  padding: moderateScale(10),
                 }}
               >
                 <Text style={{ color: '#fff' }}>{item.label}</Text>
@@ -298,7 +302,7 @@ const TransactionDetailsScreen = () => {
             style={[
               styles.input,
               {
-                height: 150,
+                height: verticalScale(100),
                 textAlignVertical: 'top',
                 backgroundColor: theme.inputBg,
                 color: theme.text,
@@ -332,90 +336,17 @@ const TransactionDetailsScreen = () => {
   );
 };
 
-// const styles = {
-//   headerConatiner: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-
-//     gap: 90,
-//     marginBottom: 20,
-//   },
-//   headingText: {
-//     fontSize: 22,
-//     color: '#fff',
-//     fontWeight: '500',
-//   },
-//   backButton: {
-//     backgroundColor: '#1f2937',
-//     borderRadius: 10,
-//     padding: 8,
-//     marginRight: 10,
-//     alignItems: 'center',
-//   },
-//   label: {
-//     color: '#ccc',
-//     marginTop: 12,
-//     marginBottom: 4,
-//   },
-//   dropdown: {
-//     backgroundColor: '#1f2937',
-//     borderRadius: 10,
-//     padding: 12,
-//     marginBottom: 16,
-//   },
-//   placeholderStyle: {
-//     color: '#888',
-//   },
-//   selectedTextStyle: {
-//     color: '#fff',
-//   },
-//   input: {
-//     backgroundColor: '#1f2937',
-//     height: 60,
-//     padding: 12,
-//     borderRadius: 10,
-//     color: '#fff',
-//     marginBottom: 16,
-//   },
-//   submitBtn: {
-//     backgroundColor: '#4CAF50',
-//     width: 415,
-//     padding: 12,
-//     borderRadius: 10,
-//     alignItems: 'center',
-//   },
-//   DeleteBtn: {
-//     backgroundColor: '#f12222ff',
-//     padding: 12,
-//     borderRadius: 10,
-//     alignItems: 'center',
-//   },
-//   saveButtonText: {
-//     color: '#fff',
-//     fontWeight: 'bold',
-//     fontSize: 16,
-//     textAlign: 'center',
-//   },
-//   buttonContainer: {
-//     marginTop: 20,
-
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     gap: 10,
-//   },
-// };
-
-export default TransactionDetailsScreen;
+export default React.memo(TransactionDetailsScreen);
 
 const styles = {
   headerConatiner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: scale(90),
+    gap: scale(60),
     marginBottom: verticalScale(20),
   },
   headingText: {
-    fontSize: moderateScale(22),
+    fontSize: moderateScale(20),
     color: '#fff',
     fontWeight: '500',
   },
@@ -472,7 +403,7 @@ const styles = {
   saveButtonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
     textAlign: 'center',
   },
   buttonContainer: {

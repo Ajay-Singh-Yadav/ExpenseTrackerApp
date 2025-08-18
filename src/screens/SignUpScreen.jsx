@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 import { AuthContext } from '../navigation/AuthContext';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const SignUpScreen = () => {
   const [name, setName] = useState('');
@@ -97,7 +98,12 @@ const SignUpScreen = () => {
       {/* Name Input */}
 
       <View style={styles.inputContainer}>
-        <Ionicons name="person" size={20} color="#aaa" style={styles.icon} />
+        <Ionicons
+          name="person"
+          size={moderateScale(16)}
+          color="#aaa"
+          style={styles.icon}
+        />
         <TextInput
           placeholder="Enter your name"
           placeholderTextColor="#aaa"
@@ -110,7 +116,12 @@ const SignUpScreen = () => {
       {/* Email Input */}
 
       <View style={styles.inputContainer}>
-        <Ionicons name="mail" size={20} color="#aaa" style={styles.icon} />
+        <Ionicons
+          name="mail"
+          size={moderateScale(16)}
+          color="#aaa"
+          style={styles.icon}
+        />
         <TextInput
           placeholder="Enter your email"
           placeholderTextColor="#aaa"
@@ -124,6 +135,12 @@ const SignUpScreen = () => {
       {/* Password Input */}
 
       <View style={styles.inputContainer}>
+        <Ionicons
+          name="lock-closed"
+          size={moderateScale(16)}
+          color="#aaa"
+          style={styles.icon}
+        />
         <TextInput
           placeholder="Enter your password"
           placeholderTextColor="#aaa"
@@ -157,11 +174,13 @@ const SignUpScreen = () => {
         >
           <Entypo
             name="mobile"
-            size={40}
+            size={moderateScale(30)}
             color="#fff"
-            style={{ marginRight: 10, alignItems: 'center' }}
+            style={{ marginRight: scale(8), alignItems: 'center' }}
           />
-          <Text style={[styles.SocialLoginText, { marginTop: 10 }]}>
+          <Text
+            style={[styles.SocialLoginText, { marginTop: verticalScale(10) }]}
+          >
             Mobile
           </Text>
         </TouchableOpacity>
@@ -173,7 +192,7 @@ const SignUpScreen = () => {
         >
           <Image
             source={require('../assets/images/Google.png')}
-            style={{ width: 50, height: 50 }}
+            style={{ width: moderateScale(40), height: moderateScale(40) }}
             resizeMode="cover"
           />
           <Text style={styles.SocialLoginText}>Google</Text>
@@ -182,7 +201,7 @@ const SignUpScreen = () => {
         <TouchableOpacity style={styles.SocialButtons}>
           <Image
             source={require('../assets/images/facebook.png')}
-            style={{ width: 50, height: 50 }}
+            style={{ width: moderateScale(40), height: moderateScale(40) }}
             resizeMode="cover"
           />
           <Text style={styles.SocialLoginText}>Facebook</Text>
@@ -198,23 +217,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#111827',
-    padding: 20,
+    padding: moderateScale(20),
   },
   SignUpText: {
-    fontSize: 30,
+    fontSize: moderateScale(25),
     color: '#fff',
     fontWeight: 'bold',
-    marginTop: 80,
+    marginTop: verticalScale(30),
     textAlign: 'center',
   },
   title: {
-    fontSize: 30,
+    fontSize: moderateScale(25),
     color: '#fff',
     fontWeight: '400',
-    marginTop: 40,
+    marginTop: verticalScale(25),
   },
   titleBold: {
-    fontSize: 30,
+    fontSize: moderateScale(25),
     color: '#fff',
     fontWeight: 'bold',
   },
@@ -227,9 +246,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#1f2937',
     borderWidth: 1,
     borderColor: '#333',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    marginVertical: 30,
+    borderRadius: moderateScale(10),
+    paddingHorizontal: scale(10),
+    marginVertical: verticalScale(20),
   },
   icon: {
     marginRight: 10,
@@ -237,19 +256,19 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     color: '#fff',
-    height: 50,
+    height: verticalScale(35),
   },
   button: {
     backgroundColor: '#A3E635',
-    paddingVertical: 15,
-    borderRadius: 10,
-    marginTop: 40,
+    paddingVertical: verticalScale(10),
+    borderRadius: moderateScale(10),
+    marginTop: verticalScale(25),
   },
   buttonText: {
     color: '#111827',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: moderateScale(14),
   },
   bottomText: {
     color: '#aaa',
@@ -259,7 +278,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: verticalScale(20),
   },
   loginLink: {
     color: '#A3E635',
@@ -269,20 +288,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '300',
     textAlign: 'center',
-    marginTop: 50,
+    marginTop: verticalScale(35),
   },
 
   SocialContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
-    marginHorizontal: 50,
+    marginHorizontal: scale(30),
   },
   SocialLoginText: {
     color: '#fff',
     fontWeight: '200',
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: moderateScale(10),
   },
   SocialButtons: {
     justifyContent: 'center',

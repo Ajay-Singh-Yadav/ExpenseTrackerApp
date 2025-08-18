@@ -1,4 +1,4 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,29 +13,19 @@ const HomeCard = ({ totalBalance, totalIncome, totalExpense }) => {
     >
       <Text style={styles.totalBalanceText}>Total Balance</Text>
 
-      <Text style={styles.totalBalanceAmount}>₹ {totalBalance}.00</Text>
+      <Text style={styles.totalBalanceAmount}>
+        ₹ {Number(totalBalance).toFixed(2)}
+      </Text>
 
       <View style={styles.IncomeExpenseContainer}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <View style={styles.rowCenterText}>
           <View style={[styles.UpAndDownArrow, { backgroundColor: 'green' }]}>
             <Ionicons name="arrow-up" size={moderateScale(15)} color="white" />
           </View>
           <Text style={styles.IncomeText}>Income</Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <View style={styles.rowCenterText}>
           <View style={[styles.UpAndDownArrow, { backgroundColor: 'red' }]}>
             <Ionicons
               name="arrow-down"
@@ -47,14 +37,7 @@ const HomeCard = ({ totalBalance, totalIncome, totalExpense }) => {
         </View>
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginHorizontal: moderateScale(18),
-          marginTop: moderateScale(10),
-        }}
-      >
+      <View style={styles.rowcenater}>
         <View style={styles.IncomeAmountConatiner}>
           <MaterialCommunityIcons
             name="currency-inr"
@@ -76,7 +59,7 @@ const HomeCard = ({ totalBalance, totalIncome, totalExpense }) => {
   );
 };
 
-export default HomeCard;
+export default React.memo(HomeCard);
 
 const styles = StyleSheet.create({
   constainer: {
@@ -94,6 +77,17 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(25),
     fontWeight: '600',
     marginLeft: moderateScale(20),
+  },
+  rowCenterText: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rowcenater: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: moderateScale(18),
+    marginTop: moderateScale(10),
   },
   UpAndDownArrow: {
     borderRadius: moderateScale(60),

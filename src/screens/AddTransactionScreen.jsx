@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -22,6 +22,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useRefetch } from '../constants/RefetchContext';
 import { expenseCategories } from '../constants/ExpenseCategories';
 import { useTheme } from '../constants/ThemeContext';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const AddTransactionScreen = () => {
   const { theme } = useTheme();
@@ -51,7 +52,7 @@ const AddTransactionScreen = () => {
         return;
       }
 
-      setIsLoading(true); // Show spinner immediately
+      setIsLoading(true);
 
       const amountFloat = parseFloat(amount);
       const date = new Date().toISOString().split('T')[0];
@@ -92,6 +93,10 @@ const AddTransactionScreen = () => {
     }
   };
 
+  useEffect(() => {
+    console.log('Wallets from context:', wallets);
+  }, [wallets]);
+
   if (showSuccess) {
     return (
       <SafeAreaView
@@ -106,7 +111,7 @@ const AddTransactionScreen = () => {
           source={require('../animation/success.json')}
           autoPlay
           loop={false}
-          style={{ width: 200, height: 200 }}
+          style={{ width: moderateScale(150), height: moderateScale(150) }}
         />
         <Text style={{ color: '#fff', marginTop: 20, fontSize: 16 }}>
           Transaction Added!
@@ -130,7 +135,11 @@ const AddTransactionScreen = () => {
               style={[styles.backButton, { backgroundColor: theme.backButton }]}
               onPress={() => navigation.goBack()}
             >
-              <Ionicons name="chevron-back" size={25} color="#fff" />
+              <Ionicons
+                name="chevron-back"
+                size={moderateScale(20)}
+                color="#fff"
+              />
             </TouchableOpacity>
 
             <Text style={[styles.headingText, { color: theme.text }]}>
@@ -159,7 +168,7 @@ const AddTransactionScreen = () => {
                   backgroundColor: selected
                     ? theme.dropdownSelected
                     : theme.dropdownBg,
-                  padding: 12,
+                  padding: moderateScale(10),
                 }}
               >
                 <Text style={{ color: theme.text }}>{item.label}</Text>
@@ -180,7 +189,11 @@ const AddTransactionScreen = () => {
             selectedTextStyle={{ color: theme.text }}
             containerStyle={{ backgroundColor: theme.dropdownBg }}
             renderRightIcon={() => (
-              <Ionicons name="chevron-down" size={20} color="#888" />
+              <Ionicons
+                name="chevron-down"
+                size={moderateScale(15)}
+                color="#888"
+              />
             )}
             renderItem={(item, selected) => (
               <View
@@ -188,7 +201,7 @@ const AddTransactionScreen = () => {
                   backgroundColor: selected
                     ? theme.dropdownSelected
                     : theme.dropdownBg,
-                  padding: 12,
+                  padding: moderateScale(10),
                 }}
               >
                 <Text style={{ color: theme.text }}>{item.label}</Text>
@@ -213,7 +226,11 @@ const AddTransactionScreen = () => {
                 selectedTextStyle={{ color: theme.text }}
                 containerStyle={{ backgroundColor: theme.dropdownBg }}
                 renderRightIcon={() => (
-                  <Ionicons name="chevron-down" size={20} color="#888" />
+                  <Ionicons
+                    name="chevron-down"
+                    size={moderateScale(15)}
+                    color="#888"
+                  />
                 )}
                 renderItem={(item, selected) => (
                   <View
@@ -221,7 +238,7 @@ const AddTransactionScreen = () => {
                       backgroundColor: selected
                         ? theme.dropdownSelected
                         : theme.dropdownBg,
-                      padding: 12,
+                      padding: moderateScale(10),
                     }}
                   >
                     <Text style={{ color: theme.text }}>{item.label}</Text>
@@ -251,7 +268,7 @@ const AddTransactionScreen = () => {
             style={[
               styles.input,
               {
-                height: 150,
+                height: verticalScale(100),
                 textAlignVertical: 'top',
                 backgroundColor: theme.inputBg,
                 color: theme.text,
@@ -285,29 +302,29 @@ const styles = {
   headerConatiner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 90,
-    marginBottom: 20,
+    gap: moderateScale(10),
+    marginBottom: verticalScale(10),
   },
   headingText: {
-    fontSize: 22,
+    fontSize: moderateScale(18),
     color: '#fff',
     fontWeight: '500',
   },
   backButton: {
     backgroundColor: '#1f2937',
-    borderRadius: 10,
-    padding: 8,
-    marginRight: 10,
+    borderRadius: moderateScale(10),
+    padding: moderateScale(8),
+    marginRight: scale(10),
     alignItems: 'center',
   },
   label: {
-    marginTop: 12,
-    marginBottom: 4,
+    marginTop: verticalScale(10),
+    marginBottom: verticalScale(4),
   },
   dropdown: {
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 16,
+    borderRadius: moderateScale(10),
+    padding: moderateScale(10),
+    marginBottom: verticalScale(12),
   },
   placeholderStyle: {
     color: '#888',
@@ -317,24 +334,24 @@ const styles = {
   },
   input: {
     // backgroundColor: '#1f2937',
-    height: 60,
-    padding: 12,
-    borderRadius: 10,
+    height: verticalScale(40),
+    padding: moderateScale(10),
+    borderRadius: moderateScale(10),
     color: '#fff',
-    marginBottom: 16,
+    marginBottom: verticalScale(12),
   },
   submitBtn: {
     backgroundColor: '#4CAF50',
-    marginTop: 30,
-    padding: 16,
-    borderRadius: 10,
+    marginTop: verticalScale(20),
+    padding: moderateScale(12),
+    borderRadius: moderateScale(10),
     alignItems: 'center',
   },
   saveButtonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: moderateScale(14),
   },
 };
 
-export default AddTransactionScreen;
+export default React.memo(AddTransactionScreen);

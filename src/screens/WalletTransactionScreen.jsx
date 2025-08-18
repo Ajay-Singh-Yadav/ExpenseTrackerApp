@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import getCategoryColor from '../constants/getCategoryColor';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { GET_TRANSACTIONS } from '../graphql/queries/transactions';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const getCategoryIcon = (type, category) => {
   if (type.toLowerCase() === 'income') {
@@ -142,8 +143,8 @@ const WalletTransactionScreen = () => {
                     <Text
                       style={{
                         color: '#fff',
-                        fontSize: 16,
-                        fontWeight: 'bold',
+                        fontSize: moderateScale(13),
+                        fontWeight: '600',
                       }}
                     >
                       {item.type === 'income'
@@ -162,13 +163,13 @@ const WalletTransactionScreen = () => {
                   <Text
                     style={{
                       color: item.type === 'income' ? '#22c55e' : '#ef4444',
-                      fontSize: 16,
-                      fontWeight: 'bold',
+                      fontSize: moderateScale(13),
+                      fontWeight: '600',
                     }}
                   >
                     {item.type === 'income' ? '+' : '-'}₹{item.amount}
                   </Text>
-                  <Text style={{ color: '#ccc', fontSize: 12 }}>
+                  <Text style={{ color: '#ccc', fontSize: moderateScale(10) }}>
                     {item.date}
                   </Text>
                 </View>
@@ -187,31 +188,30 @@ const styles = StyleSheet.create({
   headerConatiner: {
     flexDirection: 'row',
     alignItems: 'center',
-
-    marginBottom: 20,
+    marginBottom: verticalScale(10),
   },
   headingText: {
-    fontSize: 22,
+    fontSize: moderateScale(16),
     color: '#fff',
     fontWeight: '500',
   },
   backButton: {
     backgroundColor: '#1f2937',
-    borderRadius: 10,
-    padding: 8,
-    marginRight: 10,
+    borderRadius: moderateScale(10),
+    padding: moderateScale(5),
+    marginRight: scale(10),
     alignItems: 'center',
   },
   container: {
     flex: 1,
     backgroundColor: '#111827',
-    padding: 16,
+    padding: moderateScale(15),
   },
   headerText: {
-    fontSize: 20,
+    fontSize: moderateScale(15),
     color: '#fff',
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: verticalScale(12),
   },
   text: {
     color: '#fff',
@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#1f2937',
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 10,
+    padding: moderateScale(8),
+    borderRadius: moderateScale(10),
+    marginBottom: verticalScale(8),
   },
 });
