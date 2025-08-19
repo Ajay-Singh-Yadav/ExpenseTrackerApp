@@ -7,7 +7,13 @@ import {
   StyleSheet,
   Dimensions,
   Switch,
+  NativeModules,
+  Alert,
 } from 'react-native';
+
+const { BiometricModule } = NativeModules;
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -28,15 +34,49 @@ export const SettingsModal = React.memo(({ visible, onClose, title }) => {
   const [isBiometricEnabled, setIsBiometricEnabled] = useState(false);
   const [isCurrencyModal, setIsisCurrencyModal] = useState(false);
 
-  const toggleSwitch = () => {
-    setIsBiometricEnabled(previousState => !previousState);
+  const handleBiometricToggle = async () => {
+    if (!isBiometricEnabled) {
+      try {
+        const success = await BiometricModule.authenticate();
+        if (success) {
+          setIsBiometricEnabled(true);
+          await AsyncStorage.setItem('biometricEnabled', 'true'); // save
+        } else {
+          setIsBiometricEnabled(false);
+          await AsyncStorage.setItem('biometricEnabled', 'false');
+        }
+      } catch (error) {
+        setIsBiometricEnabled(false);
+        await AsyncStorage.setItem('biometricEnabled', 'false');
+      }
+    } else {
+      // ✅ Agar pehle se ON hai → OFF karne pe disable
+      setIsBiometricEnabled(false);
+      await AsyncStorage.setItem('biometricEnabled', 'false');
+    }
   };
+
+  // const toggleSwitch = () => {
+  //   setIsBiometricEnabled(previousState => !previousState);
+  // };
 
   const handleThemeSelect = theme => {
     setSelectedTheme(theme);
     toggleTheme(theme);
     setThemeModalVisible(false);
   };
+
+  useEffect(() => {
+    const loadBiometricSetting = async () => {
+      const savedValue = await AsyncStorage.getItem('biometricEnabled');
+      if (savedValue === 'true') {
+        setIsBiometricEnabled(true);
+      } else {
+        setIsBiometricEnabled(false);
+      }
+    };
+    loadBiometricSetting();
+  }, []);
 
   useEffect(() => {
     if (visible) {
@@ -132,7 +172,7 @@ export const SettingsModal = React.memo(({ visible, onClose, title }) => {
               <Switch
                 trackColor={{ false: '#767577', true: '#81b0ff' }}
                 thumbColor={isBiometricEnabled ? '#f5dd4b' : '#f4f3f4'}
-                onValueChange={toggleSwitch}
+                onValueChange={handleBiometricToggle}
                 value={isBiometricEnabled}
               />
             </View>
